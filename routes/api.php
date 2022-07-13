@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\ItemController;
+use App\Http\Controllers\Api\NoteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,10 +21,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'customers'], function () {
-    Route::get('/', [CustomerController::class, 'index']);
+    Route::get('/', [CustomerController::class, 'index'])->name('customer:list');
 });
 
 Route::group(['prefix' => 'items'], function () {
-    Route::get('/', [ItemController::class, 'index']);
+    Route::get('/', [ItemController::class, 'index'])->name('item:list');
 });
 
+Route::group(['prefix' => 'notes'], function () {
+    Route::get('/', [NoteController::class, 'index'])->name('note:list');;
+    Route::post('/', [NoteController::class, 'store'])->name('note:store');;
+    Route::get('/{note}', [NoteController::class, 'show'])->name('note:show');;
+    Route::patch('/{note}', [NoteController::class, 'update'])->name('note:update');;
+    Route::delete('/{note}', [NoteController::class, 'destroy'])->name('note:delete');;
+});

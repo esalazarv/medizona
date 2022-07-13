@@ -11,7 +11,7 @@ class Item extends Model
     use HasFactory;
 
     /**
-     * To search customers by query string
+     * To search items by query string
      *
      * @param Builder $query
      * @param string $criteria

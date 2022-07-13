@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ItemResource extends JsonResource
+class NoteResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,11 @@ class ItemResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'sku' => $this->sku,
-            'price' => $this->price,
-            'quantity' => $this->whenPivotLoaded('note_items', fn () => $this->pivot->quantity),
-            'total' => $this->whenPivotLoaded('note_items', fn () =>  $this->pivot->total),
+            'date' => $this->date,
+            'total' => $this->total,
+            'customer_id' => $this->customer_id,
+            'customer' => new CustomerResource($this->whenLoaded('customer')),
+            'items' => ItemResource::collection($this->whenLoaded('items')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
