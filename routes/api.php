@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\ItemController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +21,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'customers'], function () {
     Route::get('/', [CustomerController::class, 'index']);
+});
+
+Route::group(['prefix' => 'items'], function () {
+    Route::get('/', [ItemController::class, 'index']);
 });
 
