@@ -19,10 +19,10 @@ class Customer extends Model
      * To search customers by query string
      *
      * @param Builder $query
-     * @param string $criteria
+     * @param string|null $criteria
      * @return Builder
      */
-    public function scopeSearch(Builder $query, string $criteria): Builder {
+    public function scopeSearch(Builder $query, string | null $criteria): Builder {
         return $query->where('name', 'like', "%{$criteria}%")
             ->orWhere('email', 'like', "%{$criteria}%");
     }

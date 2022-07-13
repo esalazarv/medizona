@@ -1,7 +1,9 @@
 <?php
 
+use Database\Seeders\RootUserSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -22,6 +24,9 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        // Seed default users
+        Artisan::call('db:seed', ['--class' => RootUserSeeder::class, '--force' => true]);
     }
 
     /**
