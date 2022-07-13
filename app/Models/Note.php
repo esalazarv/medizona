@@ -11,6 +11,35 @@ class Note extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'customer_id',
+        'date',
+        'total',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'date' => 'date',
+    ];
+
+    /**
+     * Relations
+     */
+
+    public function items()
+    {
+        return $this->belongsToMany(Item::class, 'note_items')->withPivot('quantity', 'total');
+    }
+
+    /**
      * To search notes by query string
      *
      * @param Builder $query

@@ -19,6 +19,8 @@ class ItemResource extends JsonResource
             'name' => $this->name,
             'sku' => $this->sku,
             'price' => $this->price,
+            'quantity' => $this->whenPivotLoaded('note_items', fn () => $this->pivot->quantity),
+            'total' => $this->whenPivotLoaded('note_items', fn () =>  $this->pivot->total),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

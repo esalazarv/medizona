@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('note_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('note_id')->constrained();
+            $table->foreignId('item_id')->constrained();
             $table->integer('quantity')->unsigned();
             $table->float('total')->unsigned();
         });

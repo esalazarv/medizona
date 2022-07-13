@@ -18,7 +18,7 @@ class NoteResource extends JsonResource
             'id' => $this->id,
             'date' => $this->date,
             'total' => $this->total,
-            'items' => $this->whenLoaded('items'),
+            'items' => ItemResource::collection($this->whenLoaded('items')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
