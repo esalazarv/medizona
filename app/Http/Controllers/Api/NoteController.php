@@ -87,7 +87,7 @@ class NoteController extends Controller
      *
      * @param NoteUpdateRequest $request
      * @param \App\Models\Note $note
-     * @return JsonResponse|\never
+     * @return NoteResource
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
@@ -117,7 +117,7 @@ class NoteController extends Controller
             DB::commit();
 
             $note->load('items', 'customer');
-            return (new NoteResource($note))->response()->setStatusCode(Response::HTTP_CREATED);
+            return new NoteResource($note);
         } catch (\Throwable $exception) {
             DB::rollBack();
             return abort(Response::HTTP_UNPROCESSABLE_ENTITY, 'Something went wrong creating the note');
@@ -132,6 +132,7 @@ class NoteController extends Controller
      */
     public function destroy(Note $note)
     {
-        //
+        $note->delete();
+        return \response()->noContent(Response::HTTP_NO_CONTENT);
     }
 }
