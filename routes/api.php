@@ -31,4 +31,5 @@ Route::group(['prefix' => 'items'], function () {
 Route::group(['prefix' => 'notes'], function () {
     Route::get('/', [NoteController::class, 'index'])->name('note:list');;
     Route::post('/', [NoteController::class, 'store'])->name('note:store');;
+    Route::get('/{note}', [NoteController::class, 'show'])->name('note:show');;
 });

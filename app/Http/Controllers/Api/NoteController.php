@@ -7,7 +7,6 @@ use App\Http\Requests\NoteStoreRequest;
 use App\Http\Resources\NoteResource;
 use App\Models\Item;
 use App\Models\Note;
-use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -73,12 +72,13 @@ class NoteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Note  $note
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Note $note
+     * @return NoteResource
      */
-    public function show(Note $note)
+    public function show(Note $note): NoteResource
     {
-        //
+        $note->load('items');
+        return new NoteResource($note);
     }
 
     /**
