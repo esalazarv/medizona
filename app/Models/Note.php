@@ -39,6 +39,11 @@ class Note extends Model
         return $this->belongsToMany(Item::class, 'note_items')->withPivot('quantity', 'total');
     }
 
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
     /**
      * To search notes by query string
      *
