@@ -1,7 +1,9 @@
 <?php
 
+use Database\Seeders\ItemSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -20,6 +22,9 @@ return new class extends Migration
             $table->float('price')->unsigned();
             $table->timestamps();
         });
+
+        // Seed default users
+        Artisan::call('db:seed', ['--class' => ItemSeeder::class, '--force' => true]);
     }
 
     /**
