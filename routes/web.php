@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth', 'verified']], function (){
      */
     Route::group(['prefix' => 'notes'], function () {
         Route::get('/create', [NoteController::class, 'create'])->name('note.create');
+        Route::get('/{note}', [NoteController::class, 'edit'])->name('note.edit');
     });
 });
 

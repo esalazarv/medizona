@@ -176,6 +176,9 @@ import * as numeral from "numeral";
 
 export default {
     name: "Create",
+    props: {
+        note: {}
+    },
     components: {
         Head,
         BreezeAuthenticatedLayout,
@@ -221,6 +224,11 @@ export default {
             const { data } = await axios.get('/api/items', { params }).then(({data}) => data);
             this.items = data;
         },
+        async fetchNote(id) {
+            const { data } = await axios.get(`/api/notes/${id}`, ).then(({data}) => data);
+            this.customer = {...data.customer};
+            this.selectedItems = [...data.items];
+        },
         openCustomerDropDown (event) {
             event.stopPropagation();
             this.searchCustomers();
@@ -254,7 +262,7 @@ export default {
             const index = this.selectedItems.indexOf(item)
             this.selectedItems.splice(index, 1)
         },
-        async submit() {
+        async createNote()  {
             const items = this.selectedItems
                 .map(({id, quantity}) => ({id, quantity}));
             const payload = {
@@ -264,6 +272,29 @@ export default {
 
             await axios.post('/api/notes', payload).then(({data}) => data);
             Inertia.visit(route('dashboard'))
+        },
+        async updateNote()  {
+            const items = this.selectedItems
+                .map(({id, quantity}) => ({id, quantity}));
+            const payload = {
+                customer_id: this.customer.id,
+                items
+            };
+
+            const {id} = this.note;
+            await axios.patch(`/api/notes/${id}`, payload).then(({data}) => data);
+            Inertia.visit(route('dashboard'))
+        },
+        async submit() {
+            if (this.note.id) {
+               return await this.updateNote();
+            }
+            return await this.createNote();
+        }
+    },
+    mounted() {
+        if (this.note.id) {
+            this.fetchNote(this.note.id)
         }
     }
 }
