@@ -116,8 +116,8 @@
 <script>
 import { Head } from '@inertiajs/inertia-vue3'
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
-import * as moment from 'moment'
-import * as numeral from 'numeral'
+import moment from 'moment'
+import numeral from 'numeral'
 
 export default {
     components: {
