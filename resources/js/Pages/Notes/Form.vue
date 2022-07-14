@@ -171,8 +171,8 @@ import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Inertia } from '@inertiajs/inertia'
 
 import ClickOutside from "@/Directives/ClickOutside";
-import * as moment from "moment";
-import * as numeral from "numeral";
+import moment from "moment";
+import numeral from "numeral";
 
 export default {
     name: "Create",
@@ -286,7 +286,7 @@ export default {
             Inertia.visit(route('dashboard'))
         },
         async submit() {
-            if (this.note.id) {
+            if (this.note && this.note.id) {
                return await this.updateNote();
             }
             return await this.createNote();
