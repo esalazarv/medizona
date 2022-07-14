@@ -14,10 +14,10 @@ class Item extends Model
      * To search items by query string
      *
      * @param Builder $query
-     * @param string $criteria
+     * @param string|null $criteria
      * @return Builder
      */
-    public function scopeSearch(Builder $query, string $criteria): Builder {
+    public function scopeSearch(Builder $query, string | null $criteria): Builder {
         return $query->where('name', 'like', "%{$criteria}%")
             ->orWhere('sku', 'like', "%{$criteria}%")
             ->orWhere('price', 'like', "%{$criteria}%");

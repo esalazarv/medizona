@@ -49,11 +49,12 @@ class Note extends Model
      * To search notes by query string
      *
      * @param Builder $query
-     * @param string $criteria
+     * @param string|null $criteria
      * @return Builder
      */
-    public function scopeSearch(Builder $query, string $criteria): Builder {
+    public function scopeSearch(Builder $query, string | null $criteria): Builder {
         return $query->where('date', 'like', "%{$criteria}%")
-            ->orWhere('total', 'like', "%{$criteria}%");
+            ->orWhere('total', 'like', "%{$criteria}%")
+            ->orWhereHas('customer', fn ($query) => $query->search($criteria));
     }
 }

@@ -25,7 +25,6 @@ class NoteUpdateRequest extends FormRequest
     {
         return [
             'customer_id' => ['sometimes', 'exists:customers,id'],
-            'date' => ['sometimes', 'date', 'date_format:Y-m-d'],
             'items' => ['sometimes', 'array', 'min:1'],
             'items.*.id' => ['required', 'exists:items'],
             'items.*.quantity' => ['required', 'min:1'],

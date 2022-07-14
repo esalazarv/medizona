@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Web\NoteController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+Route::group(['middleware' => ['auth', 'verified']], function (){
+    Route::get('/', [NoteController::class, 'index'])->name('dashboard');
+
+    /**
+     * Note routes
+     */
+    Route::group(['prefix' => 'notes'], function () {
+        Route::get('/create', [NoteController::class, 'create'])->name('note.create');
+        Route::get('/{note}', [NoteController::class, 'edit'])->name('note.edit');
+    });
 });
+
+require __DIR__.'/auth.php';
