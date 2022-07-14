@@ -25,7 +25,6 @@ class NoteStoreRequest extends FormRequest
     {
         return [
             'customer_id' => ['required', 'exists:customers,id'],
-            'date' => ['required', 'date', 'date_format:Y-m-d'],
             'items' => ['required', 'array', 'min:1'],
             'items.*.id' => ['required', 'exists:items'],
             'items.*.quantity' => ['required', 'min:1'],

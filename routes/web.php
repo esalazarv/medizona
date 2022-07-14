@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\NoteController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,8 +25,15 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Notes/List');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::group(['middleware' => ['auth', 'verified']], function (){
+    Route::get('/dashboard', [NoteController::class, 'index'])->name('dashboard');
+
+    /**
+     * Note routes
+     */
+    Route::group(['prefix' => 'notes'], function () {
+        Route::get('/create', [NoteController::class, 'create'])->name('note.create');
+    });
+});
 
 require __DIR__.'/auth.php';

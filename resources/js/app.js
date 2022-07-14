@@ -9,8 +9,7 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import { vue3Debounce } from 'vue-debounce'
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
-
-createInertiaApp({
+ createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
     setup({ el, app, props, plugin, route }) {
@@ -19,10 +18,9 @@ createInertiaApp({
             .use(ZiggyVue, Ziggy)
             .mixin({
                 directives: {
-                    debounce: vue3Debounce()
-                }
-            })
-            .mount(el);
+                    debounce: vue3Debounce(),
+                },
+            }).mount(el);
     },
 });
 

@@ -17,11 +17,14 @@
                                 v-debounce:300ms="search"
                                 type="search"
                                 placeholder="Search..."
-                                required class="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                required class="block p-3 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                             >
                         </div>
                         <div class="col-span-2 flex justify-end">
-                            <a type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-3 text-center mr-2 mb-2">
+                            <a
+                                :href="route('note.create')"
+                                type="button"
+                                class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-3 text-center mr-2 mb-2">
                                 Create Note
                             </a>
                         </div>
@@ -43,6 +46,21 @@
                                         <td class="py-4 px-6">{{note.customer.name}}</td>
                                         <td class="py-4 px-6">{{moment(note.date).format( 'YYYY-MM-DD')}}</td>
                                         <td class="py-4 px-6">{{numeral(note.total).format('$0,0.00')}}</td>
+                                        <td>
+                                            <div class="grid grid-cols-2">
+                                                <button @click="editNote(note)" class="bg-transparent hover focus:outline-none">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                </button>
+
+                                                <button @click="confirmDeleteion(note)" class="bg-transparent hover focus:outline-none">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </template>
                                 <tr v-else class="w-full text-sm text-center">

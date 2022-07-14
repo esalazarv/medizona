@@ -8,6 +8,7 @@ use App\Http\Requests\NoteUpdateRequest;
 use App\Http\Resources\NoteResource;
 use App\Models\Item;
 use App\Models\Note;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -57,7 +58,8 @@ class NoteController extends Controller
             $total = $itemsData->sum('total');
             $data = $request->except('items');
 
-            $note = Note::create([...$data, 'total' => $total]);
+            $date = Carbon::now();
+            $note = Note::create([...$data, 'total' => $total, 'date' => $date]);
 
             $note->items()->sync($itemsData);
             DB::commit();
@@ -111,7 +113,8 @@ class NoteController extends Controller
             $total = $itemsData->sum('total');
             $data = $request->except('items');
 
-            $note->update([...$data, 'total' => $total]);
+            $date = Carbon::now();
+            $note->update([...$data, 'total' => $total, 'date' => $date]);
             $note->items()->sync($itemsData);
 
             DB::commit();
