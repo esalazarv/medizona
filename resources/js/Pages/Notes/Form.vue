@@ -293,7 +293,7 @@ export default {
         }
     },
     mounted() {
-        if (this.note.id) {
+        if (this.note && this.note.id) {
             this.fetchNote(this.note.id)
         }
     }
